@@ -8,6 +8,15 @@ import type { CategoryTreeResponse, NextPageWithLayout } from '@/lib/types'
 
 import type { GetServerSidePropsContext } from 'next'
 
+
+//Bloomreach
+import { useRouter } from 'next/router'
+import axios from 'axios'
+import { BrPage } from '@bloomreach/react-sdk'
+import ContentPage from '@/components/br/BRHero/ContentPage'
+
+//Bloomreach
+
 interface HomePageProps {
   carouselItem: any
 }
@@ -26,9 +35,25 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
 const Home: NextPageWithLayout<HomePageProps> = (props) => {
   const { carouselItem } = props
+  const router = useRouter()
+
+  //convert the query string object to a string
+  function toLocation(query: any) {
+    const paramsStr = Object.keys(query)
+      .map((key) => key + '=' + query[key])
+      .join('&')
+
+    return paramsStr ? '?' + paramsStr : ''
+  }
+
   return (
     <>
-      <KiboHeroCarousel carouselItem={carouselItem || []}></KiboHeroCarousel>
+      <BrPage configuration={{
+          path: `${router.pathname}${toLocation(router.query)}`,
+          endpoint: 'https://developers.bloomreach.io/delivery/site/v1/channels/am_test/pages',
+          httpClient: axios
+        }} mapping={{ ContentPage }} />
+      {/* <KiboHeroCarousel carouselItem={carouselItem || []}></KiboHeroCarousel> */}
     </>
   )
 }
