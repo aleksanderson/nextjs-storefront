@@ -1,21 +1,16 @@
+import { BrPage } from '@bloomreach/react-sdk'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { homePageResultMock } from '@/__mocks__/stories'
+import ContentPage from '@/components/br/BRHero/ContentPage'
 import KiboHeroCarousel from '@/components/home/Carousel/KiboHeroCarousel'
 import { FullWidthLayout } from '@/components/layout'
 import getCategoryTree from '@/lib/api/operations/get-category-tree'
 import type { CategoryTreeResponse, NextPageWithLayout } from '@/lib/types'
 
 import type { GetServerSidePropsContext } from 'next'
-
-
-//Bloomreach
-import { useRouter } from 'next/router'
-import axios from 'axios'
-import { BrPage } from '@bloomreach/react-sdk'
-import ContentPage from '@/components/br/BRHero/ContentPage'
-
-//Bloomreach
 
 interface HomePageProps {
   carouselItem: any
