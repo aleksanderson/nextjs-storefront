@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { BrProps } from '@bloomreach/react-sdk'
+import { Document, ImageSet } from '@bloomreach/spa-sdk';
 import {
   Button,
   useMediaQuery,
@@ -33,21 +34,27 @@ const MainStyle = styled('div')({
 })
 
 
-const ContentPage = ({ component, page }: BrProps) => {
+const ContentPage = ({ page }: BrProps) => {
 
   // const document = page?.getDocument();
   // const { title, content, introduction, image } = document?.getData() as ;
   // const imageURL: string = image && page?.getContent(image)?.getOriginal()?.getUrl() as string;
 
-  const documentRef = component?.getModels().document;
-  const document = !!documentRef && page?.getContent(documentRef);
+  // const documentRef = component?.getModels().document;
+  // const document = !!documentRef && page?.getContent(documentRef);
+
+  // if (!document) {
+  //   return null;
+  // }
+
+  const document = page?.getDocument()
 
   if (!document) {
     return null;
   }
 
-  const {content, image: imageRef, title, introduction} = document.getData()
-  const imageURL = imageRef && page?.getContent(imageRef)?.getUrl()
+  const {content, image: imageRef, title, introduction} = (document as Document).getData()
+  const imageURL = imageRef && page?.getContent<ImageSet>(imageRef)?.getOriginal()?.getUrl()
 
 
   return (
