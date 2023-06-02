@@ -15,13 +15,16 @@ import { useRouter } from 'next/router'
 
 import { KiboImage } from '@/components/common'
 
+import { BrProps } from '@bloomreach/react-sdk'
+import { Page } from '@bloomreach/spa-sdk'
+
 interface ItemProps {
-  imageUrl?: string
+  imageUrl: string
   mobileImageUrl?: string
-  imageAlt?: string
+  imageAlt: string
   title?: string
   subtitle?: string
-  description?: string
+  description: string
   buttonText?: string
   buttonLink?: string
 }
@@ -31,19 +34,30 @@ const MainStyle = styled('div')({
   color: 'grey.700',
 })
 
-const ContentPage = ({ component, page }) => {
 
-  const document = page.getDocument();
+const ContentPage = ({ component, page }: BrProps) => {
 
-  const { title, content, introduction, image } = document.getData();
-  const imageObj = image && page?.getContent(image)?.getOriginal();
+  // const document = page?.getDocument();
+  // const { title, content, introduction, image } = document?.getData() as ;
+  // const imageURL: string = image && page?.getContent(image)?.getOriginal()?.getUrl() as string;
+
+  const documentRef = component?.getModels().document;
+  const document = !!documentRef && page?.getContent(documentRef);
+
+  if (!document) {
+    return null;
+  }
+
+  const {content, image: imageRef, title, introduction} = document.getData()
+  const imageURL = imageRef && page?.getContent(imageRef)?.getUrl()
 
   return (
     <HeroItem
       title={title}
       subtitle={introduction}
       description={content.value}
-      imageUrl={imageObj.getUrl()}
+      imageUrl={imageURL}
+      imageAlt=''
       buttonText="Shop Now"
     />
   )
@@ -117,7 +131,7 @@ function HeroItem(props: ItemProps) {
         }}
       >
         <KiboImage
-          src={mobileView ? mobileImageUrl : imageUrl}
+          src={imageUrl}
           alt={imageUrl ? imageAlt : 'product-image-alt'}
           layout="fill"
           objectFit="cover"
@@ -138,7 +152,6 @@ function HeroItem(props: ItemProps) {
               {subtitle}
             </Typography>
             <Typography style={{ fontSize: mobileView ? '0.75rem' : '1rem' }} sx={styles.desStyle} dangerouslySetInnerHTML={{ __html: description }}>
-        
             </Typography>
 
             <Button
