@@ -51,6 +51,7 @@ const ContentPage = ({ component, page }: BrProps) => {
   const {content, image: imageRef, title, introduction} = document.getData()
   const imageURL = imageRef && page?.getContent(imageRef)?.getUrl()
 
+  
   return (
     <HeroItem
       title={title}
