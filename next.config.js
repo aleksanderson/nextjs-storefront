@@ -4,11 +4,6 @@ const LOCATION_COOKIE = 'kibo_purchase_location'
 const DEFAULT_WISHLIST_NAME = 'default-wishlist'
 
 module.exports = {
-  eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
-    ignoreDuringBuilds: true,
-  },
   reactStrictMode: false,
   compiler: {
     // see https://styled-components.com/docs/tooling#babel-plugin for more info on the options.
@@ -26,7 +21,7 @@ module.exports = {
       'cdn-sb.mozu.com',
       'encrypted-tbn0.gstatic.com',
       'images.ctfassets.net',
-      'cdn.builder.io',,
+      'cdn.builder.io',
       'developers.bloomreach.io'
     ],
   },
