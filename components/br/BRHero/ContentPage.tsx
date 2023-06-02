@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { BrProps } from '@bloomreach/react-sdk'
 import {
   Button,
   useMediaQuery,
@@ -14,9 +15,6 @@ import { useRouter } from 'next/router'
 //import Carousel from 'react-material-ui-carousel'
 
 import { KiboImage } from '@/components/common'
-
-import { BrProps } from '@bloomreach/react-sdk'
-import { Page } from '@bloomreach/spa-sdk'
 
 interface ItemProps {
   imageUrl: string
@@ -51,7 +49,7 @@ const ContentPage = ({ component, page }: BrProps) => {
   const {content, image: imageRef, title, introduction} = document.getData()
   const imageURL = imageRef && page?.getContent(imageRef)?.getUrl()
 
-  
+
   return (
     <HeroItem
       title={title}
