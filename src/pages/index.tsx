@@ -45,7 +45,7 @@ const Home: NextPageWithLayout<HomePageProps> = (props) => {
     <>
       <BrPage configuration={{
           path: `${router.pathname}${toLocation(router.query)}`,
-          endpoint: 'https://developers.bloomreach.io/delivery/site/v1/channels/am_test/pages',
+          endpoint: 'https://developers.bloomreach.io/delivery/site/v1/channels/am_bloomreach_poc/pages',
           httpClient: axios
         }} mapping={{ ContentPage }} />
       {/* <KiboHeroCarousel carouselItem={carouselItem || []}></KiboHeroCarousel> */}
